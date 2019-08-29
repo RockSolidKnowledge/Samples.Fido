@@ -10,11 +10,11 @@ namespace Core
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddAuthentication()
-                .AddCookie("cookie");
-
             services.AddFido()
                 .AddInMemoryKeyStore();
+
+            services.AddAuthentication("cookie")
+                .AddCookie("cookie", options => { options.LoginPath = "/Home/StartLogin"; });
         }
 
         public void Configure(IApplicationBuilder app)

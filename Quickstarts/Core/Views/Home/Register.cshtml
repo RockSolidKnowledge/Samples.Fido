@@ -4,28 +4,28 @@
 
 <script>
     // Challenge
-    var challengeBytes = atob("@Html.Raw(Model.Base64Challenge)");
-    var challengeNumbers = new Array(challengeBytes.length);
-    for (var i = 0; i < challengeBytes.length; i++) {
-        challengeNumbers[i] = challengeBytes.charCodeAt(i);
+    // Challenge
+    let challengeBytesAsString = atob("@Html.Raw(Model.Base64Challenge)");
+    let challenge = new Uint8Array(challengeBytesAsString.length);
+    for (let i = 0; i < challengeBytesAsString.length; i++) {
+        challenge[i] = challengeBytesAsString.charCodeAt(i);
     }
-    var challenge = new Uint8Array(challengeNumbers);
 
     // Relying party details
-    var rp = {
+    let rp = {
         id: "@Model.RelyingPartyId",
         name: "RSK FIDO Quickstart - Core"
     };
         
     // User handle
-    var user = {
+    let user = {
         name: "@Model.UserId",
         displayName: "@Model.UserId",
         id: new TextEncoder("utf-8").encode("@Model.UserId")
     };
 
     // Request ES256 algorithm
-    var pubKeyCredParams = [
+    let pubKeyCredParams = [
         {
             type: "public-key",
             alg: -7

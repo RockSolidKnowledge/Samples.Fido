@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Core.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rsk.AspNetCore.Fido;
 using Rsk.AspNetCore.Fido.Models;
@@ -18,6 +22,9 @@ namespace Core.Controllers
 
         public IActionResult Index() => View();
 
+        [Authorize]
+        public IActionResult Secure() => View();
+
         public IActionResult StartRegistration() => View();
 
         [HttpPost]
@@ -33,6 +40,34 @@ namespace Core.Controllers
         public async Task<IActionResult> CompleteRegistration([FromBody] FidoRegistrationResponse registrationResponse)
         {
             var result = await fido.CompleteRegistration(registrationResponse);
+
+            if (result.IsError) return BadRequest(result.ErrorDescription);
+            return Ok();
+        }
+
+        public IActionResult StartLogin() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel model)
+        {
+            var challenge = await fido.InitiateAuthentication(model.UserId);
+
+            return View(challenge);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CompleteLogin([FromBody] FidoAuthenticationResponse authenticationResponse)
+        {
+            var result = await fido.CompleteAuthentication(authenticationResponse);
+
+            if (result.IsSuccess)
+            {
+                await HttpContext.SignInAsync("cookie", new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
+                {
+                    new Claim("sub", result.UserId)
+                }, "cookie")));
+            }
 
             if (result.IsError) return BadRequest(result.ErrorDescription);
             return Ok();
