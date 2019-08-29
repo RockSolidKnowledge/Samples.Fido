@@ -50,7 +50,7 @@
 
             // post to register callback endpoint and redirect to homepage
             $.ajax({
-                url: '/Home/RegisterCallback',
+                url: '/Home/CompleteRegistration',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(encodedCredentials),

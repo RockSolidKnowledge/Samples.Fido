@@ -30,8 +30,7 @@ namespace Core.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CompleteRegistration(FidoRegistrationResponse registrationResponse)
+        public async Task<IActionResult> CompleteRegistration([FromBody] FidoRegistrationResponse registrationResponse)
         {
             var result = await fido.CompleteRegistration(registrationResponse);
 
