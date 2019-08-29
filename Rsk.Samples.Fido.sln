@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Quickstarts", "Quickstarts", "{6DAF3A6D-35B7-4738-9CFD-52300C48EB45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Quickstarts\Core\Core.csproj", "{CBF1F288-AEA0-47F1-B42E-E66A764BA558}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBF1F288-AEA0-47F1-B42E-E66A764BA558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF1F288-AEA0-47F1-B42E-E66A764BA558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF1F288-AEA0-47F1-B42E-E66A764BA558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF1F288-AEA0-47F1-B42E-E66A764BA558}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBF1F288-AEA0-47F1-B42E-E66A764BA558} = {6DAF3A6D-35B7-4738-9CFD-52300C48EB45}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9C850B1F-3D1D-4990-B576-9B08CAF4E3D4}
+	EndGlobalSection
+EndGlobal
