@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Quickstarts\Core\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework", "Quickstarts\EntityFramework\EntityFramework.csproj", "{3D483062-058C-4114-A058-D2EBEC1B41CF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Passwordless", "Quickstarts\Passwordless\Passwordless.csproj", "{A62DB3CB-9F18-495D-8DA1-FFEE2C0161BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{3D483062-058C-4114-A058-D2EBEC1B41CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D483062-058C-4114-A058-D2EBEC1B41CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D483062-058C-4114-A058-D2EBEC1B41CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A62DB3CB-9F18-495D-8DA1-FFEE2C0161BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A62DB3CB-9F18-495D-8DA1-FFEE2C0161BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A62DB3CB-9F18-495D-8DA1-FFEE2C0161BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A62DB3CB-9F18-495D-8DA1-FFEE2C0161BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{CBF1F288-AEA0-47F1-B42E-E66A764BA558} = {6DAF3A6D-35B7-4738-9CFD-52300C48EB45}
 		{3D483062-058C-4114-A058-D2EBEC1B41CF} = {6DAF3A6D-35B7-4738-9CFD-52300C48EB45}
+		{A62DB3CB-9F18-495D-8DA1-FFEE2C0161BA} = {6DAF3A6D-35B7-4738-9CFD-52300C48EB45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C850B1F-3D1D-4990-B576-9B08CAF4E3D4}

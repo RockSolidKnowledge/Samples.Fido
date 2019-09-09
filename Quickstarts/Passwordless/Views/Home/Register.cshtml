@@ -1,0 +1,73 @@
+﻿@model Rsk.AspNetCore.Fido.Models.FidoRegistrationChallenge
+
+<h2>Please use your authenticator</h2>
+
+<script>
+    // Challenge
+    let challengeBytesAsString = atob("@Html.Raw(Model.Base64Challenge)");
+    let challenge = new Uint8Array(challengeBytesAsString.length);
+    for (let i = 0; i < challengeBytesAsString.length; i++) {
+        challenge[i] = challengeBytesAsString.charCodeAt(i);
+    }
+
+    // Relying party details
+    let rp = {
+        id: "@Model.RelyingPartyId",
+        name: "RSK FIDO Quickstart - Core"
+    };
+        
+    // User handle
+    let user = {
+        name: "@Model.UserId",
+        displayName: "@Model.UserId",
+        id: new TextEncoder("utf-8").encode("@Model.UserId")
+    };
+
+    // Request ES256 algorithm
+    let pubKeyCredParams = [
+        {
+            type: "public-key",
+            alg: -7
+        }
+    ];
+
+    // authenticator selection
+    var authenticatorSelection = {
+        requireResidentKey: true,
+        userVerification: "required"
+    };
+
+    navigator.credentials.create({ publicKey: {challenge, rp, user, pubKeyCredParams, authenticatorSelection} })
+        .then((credentials) => {
+
+            // base64 encode array buffers
+            let encodedCredentials = {
+                id: credentials.id,
+                rawId: btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.rawId))),
+                type: credentials.type,
+                response: {
+                    attestationObject:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.attestationObject))),
+                    clientDataJSON:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.clientDataJSON)))
+                }
+            };
+
+            // post to register callback endpoint and redirect to homepage
+            $.ajax({
+                url: '/Home/CompleteRegistration',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(encodedCredentials),
+                success: function() {
+                    window.location.href = "/";
+                },
+                error: function() {
+                    console.error("Error from server...");
+                }
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+</script>

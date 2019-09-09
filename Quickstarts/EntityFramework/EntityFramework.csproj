@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Rsk.AspNetCore.Fido" Version="0.0.1.605" />
-    <PackageReference Include="Rsk.AspNetCore.Fido.EntityFramework" Version="0.0.1.605" />
+    <PackageReference Include="Rsk.AspNetCore.Fido" Version="1.0.0-preview1.1" />
+    <PackageReference Include="Rsk.AspNetCore.Fido.EntityFramework" Version="1.0.0-preview1" />
   </ItemGroup>
 
 </Project>
