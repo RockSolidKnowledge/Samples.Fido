@@ -23,7 +23,7 @@ namespace Core.Controllers
         public IActionResult Index() => View();
 
         [Authorize]
-        public IActionResult Secure() => View();
+        public IActionResult Secure() => View("Index");
 
         public IActionResult StartRegistration() => View();
 
