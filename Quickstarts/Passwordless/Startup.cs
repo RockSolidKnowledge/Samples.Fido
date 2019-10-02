@@ -10,7 +10,11 @@ namespace Passwordless
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddFido()
+            services.AddFido(options =>
+                {
+                    options.Licensee = "";
+                    options.LicenseKey = "";
+                })
                 .AddInMemoryKeyStore();
 
             services.AddAuthentication("cookie")

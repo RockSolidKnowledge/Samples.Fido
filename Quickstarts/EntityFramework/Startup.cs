@@ -14,7 +14,11 @@ namespace EntityFramework
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
-            services.AddFido()
+            services.AddFido(options =>
+                {
+                    options.Licensee = "";
+                    options.LicenseKey = "";
+                })
                 .AddEntityFrameworkStore(options => options.UseSqlServer(
                     "<connection_string>", sql => sql.MigrationsAssembly(migrationsAssembly)));
 
