@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rsk.AspNetCore.Fido;
+using Rsk.AspNetCore.Fido.Dtos;
 using Rsk.AspNetCore.Fido.Models;
 
 namespace Core.Controllers
@@ -37,9 +38,9 @@ namespace Core.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CompleteRegistration([FromBody] FidoRegistrationResponse registrationResponse)
+        public async Task<IActionResult> CompleteRegistration([FromBody] Base64FidoRegistrationResponse registrationResponse)
         {
-            var result = await fido.CompleteRegistration(registrationResponse);
+            var result = await fido.CompleteRegistration(registrationResponse.ToFidoResponse());
 
             if (result.IsError) return BadRequest(result.ErrorDescription);
             return Ok();
@@ -57,9 +58,9 @@ namespace Core.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CompleteLogin([FromBody] FidoAuthenticationResponse authenticationResponse)
+        public async Task<IActionResult> CompleteLogin([FromBody] Base64FidoAuthenticationResponse authenticationResponse)
         {
-            var result = await fido.CompleteAuthentication(authenticationResponse);
+            var result = await fido.CompleteAuthentication(authenticationResponse.ToFidoResponse());
 
             if (result.IsSuccess)
             {
