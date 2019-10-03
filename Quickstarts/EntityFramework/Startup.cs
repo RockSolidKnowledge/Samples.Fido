@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +9,8 @@ namespace EntityFramework
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
+            services.AddControllersWithViews();
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
@@ -32,10 +32,13 @@ namespace EntityFramework
 
             app.UseHttpsRedirection();
 
-            app.UseAuthentication();
-
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         }
     }
 }

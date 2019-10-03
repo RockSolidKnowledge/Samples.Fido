@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rsk.AspNetCore.Fido;
 using Rsk.AspNetCore.Fido.Dtos;
-using Rsk.AspNetCore.Fido.Models;
 
 namespace Core.Controllers
 {
