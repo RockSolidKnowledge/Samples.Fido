@@ -1,4 +1,4 @@
-﻿@model Rsk.AspNetCore.Fido.Models.FidoRegistrationChallenge
+﻿@model Rsk.AspNetCore.Fido.Dtos.Base64FidoRegistrationChallenge
 
 <h2>Please use your authenticator</h2>
 
@@ -10,6 +10,58 @@
         challenge[i] = challengeBytesAsString.charCodeAt(i);
     }
 
+    // Supported algorithms, ordered by preference
+    var pubKeyCredParams = [
+        {
+            type: "public-key",
+            alg: -8
+        },
+        {
+            type: "public-key",
+            alg: -259
+        },
+        {
+            type: "public-key",
+            alg: -39
+        },
+        {
+            type: "public-key",
+            alg: -36
+        },
+        {
+            type: "public-key",
+            alg: -258
+        },
+        {
+            type: "public-key",
+            alg: -38
+        },
+        {
+            type: "public-key",
+            alg: -35
+        },
+        {
+            type: "public-key",
+            alg: -7
+        },
+        {
+            type: "public-key",
+            alg: -257
+        },
+        {
+            type: "public-key",
+            alg: -37
+        },
+        {
+            type: "public-key",
+            alg: -7
+        },
+        {
+            type: "public-key",
+            alg: -65535
+        }
+    ];
+
     // Relying party details
     let rp = {
         id: "@Model.RelyingPartyId",
@@ -17,19 +69,17 @@
     };
         
     // User handle
+    let userHandleBytesAsString = atob("@Html.Raw(Model.Base64UserHandle)");
+    let userHandle = new Uint8Array(userHandleBytesAsString.length);
+    for (let i = 0; i < userHandleBytesAsString.length; i++) {
+        userHandle[i] = userHandleBytesAsString.charCodeAt(i);
+    }
+
     let user = {
         name: "@Model.UserId",
         displayName: "@Model.UserId",
-        id: new TextEncoder("utf-8").encode("@Model.UserId")
+        id: userHandle
     };
-
-    // Request ES256 algorithm
-    let pubKeyCredParams = [
-        {
-            type: "public-key",
-            alg: -7
-        }
-    ];
 
     navigator.credentials.create({ publicKey: {challenge, rp, user, pubKeyCredParams} })
         .then((credentials) => {

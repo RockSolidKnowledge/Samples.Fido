@@ -33,7 +33,7 @@ namespace Passwordless.Controllers
         {
             var challenge = await fido.InitiateRegistration(model.UserId, model.DeviceName);
 
-            return View(challenge);
+            return View(challenge.ToBase64Dto());
         }
 
         [HttpPost]
@@ -49,7 +49,7 @@ namespace Passwordless.Controllers
         {
             var challenge = await fido.InitiateAuthentication(null);
 
-            return View(challenge);
+            return View(challenge.ToBase64Dto());
         }
 
         [HttpPost]

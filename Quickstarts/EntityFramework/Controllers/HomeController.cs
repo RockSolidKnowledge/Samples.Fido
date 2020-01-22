@@ -33,7 +33,7 @@ namespace EntityFramework.Controllers
         {
             var challenge = await fido.InitiateRegistration(model.UserId, model.DeviceName);
 
-            return View(challenge);
+            return View(challenge.ToBase64Dto());
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace EntityFramework.Controllers
         {
             var challenge = await fido.InitiateAuthentication(model.UserId);
 
-            return View(challenge);
+            return View(challenge.ToBase64Dto());
         }
 
         [HttpPost]
