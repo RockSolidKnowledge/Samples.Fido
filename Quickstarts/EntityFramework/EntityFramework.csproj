@@ -7,8 +7,8 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Rsk.AspNetCore.Fido" Version="1.1.0-preview1" />
-    <PackageReference Include="Rsk.AspNetCore.Fido.EntityFramework" Version="1.1.0-preview1" />
+    <PackageReference Include="Rsk.AspNetCore.Fido" Version="1.1.0" />
+    <PackageReference Include="Rsk.AspNetCore.Fido.EntityFramework" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.0" />
   </ItemGroup>
