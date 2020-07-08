@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FidoWithAspnetIdentity", "FidoWithAspnetIdentity\FidoWithAspnetIdentity.csproj", "{4D58F028-2815-462C-8DB9-D3EEC35E3BB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "Migrations\Migrations.csproj", "{02E1FC48-AB8B-4B8C-ADA2-A95253257B81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D58F028-2815-462C-8DB9-D3EEC35E3BB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D58F028-2815-462C-8DB9-D3EEC35E3BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D58F028-2815-462C-8DB9-D3EEC35E3BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D58F028-2815-462C-8DB9-D3EEC35E3BB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02E1FC48-AB8B-4B8C-ADA2-A95253257B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E1FC48-AB8B-4B8C-ADA2-A95253257B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E1FC48-AB8B-4B8C-ADA2-A95253257B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E1FC48-AB8B-4B8C-ADA2-A95253257B81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

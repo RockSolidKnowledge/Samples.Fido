@@ -1,0 +1,12 @@
+@model IdS.Quickstart.Account.RegistrationViewModel
+@{
+    var fidoChallenge = Model.FidoRegistrationChallenge;
+}
+
+<h2>Please use your authenticator</h2>
+
+<script src="~/js/fido.js"></script>
+
+<script nonce="@Model.Nonce">
+    register("@Html.Raw(fidoChallenge.Base64Challenge)", "@fidoChallenge.RelyingPartyId", "@Html.Raw(fidoChallenge.Base64UserHandle)", "@fidoChallenge.UserId", '/Account/CompleteRegistration')
+</script>

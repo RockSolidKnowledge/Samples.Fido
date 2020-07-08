@@ -1,0 +1,115 @@
+@model Rsk.AspNetCore.Fido.Dtos.Base64FidoRegistrationChallenge
+
+<h2>Please use your authenticator</h2>
+
+<script>
+    let challengeBytesAsString = atob("@Html.Raw(Model.Base64Challenge)");
+    let challenge = new Uint8Array(challengeBytesAsString.length);
+    for (let i = 0; i < challengeBytesAsString.length; i++) {
+        challenge[i] = challengeBytesAsString.charCodeAt(i);
+    }
+    
+       // Supported algorithms, ordered by preference
+        const pubKeyCredParams = [
+            {
+                type: "public-key",
+                alg: -8
+            },
+            {
+                type: "public-key",
+                alg: -259
+            },
+            {
+                type: "public-key",
+                alg: -39
+            },
+            {
+                type: "public-key",
+                alg: -36
+            },
+            {
+                type: "public-key",
+                alg: -258
+            },
+            {
+                type: "public-key",
+                alg: -38
+            },
+            {
+                type: "public-key",
+                alg: -35
+            },
+            {
+                type: "public-key",
+                alg: -7
+            },
+            {
+                type: "public-key",
+                alg: -257
+            },
+            {
+                type: "public-key",
+                alg: -37
+            },
+            {
+                type: "public-key",
+                alg: -7
+            },
+            {
+                type: "public-key",
+                alg: -65535
+            }
+        ];
+    
+        // Relying party details
+        let rp = {
+            id: "@Model.RelyingPartyId",
+            name: "FIDO Test Video"
+        };
+        
+        // User handle
+        let userHandleBytesAsString = atob("@Html.Raw(Model.Base64UserHandle)");
+        let userHandle = new Uint8Array(userHandleBytesAsString.length);
+        for (let i = 0; i < userHandleBytesAsString.length; i++) {
+            userHandle[i] = userHandleBytesAsString.charCodeAt(i);
+        }
+    
+        let user = {
+            name: "@Model.UserId",
+            displayName: "@Model.UserId",
+            id: userHandle
+        };
+
+        navigator.credentials.create({ publicKey: {challenge, rp, user, pubKeyCredParams} })
+            .then((credentials) => {
+                // base64 encode array buffers
+                let encodedCredentials = {
+                    id: credentials.id,
+                    rawId: btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.rawId))),
+                    type: credentials.type,
+                    response: {
+                        attestationObject:
+                            btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.attestationObject))),
+                        clientDataJSON:
+                            btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.clientDataJSON)))
+                    }
+                };
+                
+                // post to register callback endpoint and redirect to homepage
+                $.ajax({
+                    url: '/Fido/CompleteRegistration',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(encodedCredentials),
+                    success: function() {
+                        window.location.href = "/";
+                    },
+                    error: function() {
+                        console.error("Error from server...");
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+</script>

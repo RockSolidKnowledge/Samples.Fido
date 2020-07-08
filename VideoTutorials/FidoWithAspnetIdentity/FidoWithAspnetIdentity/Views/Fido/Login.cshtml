@@ -1,0 +1,71 @@
+@using Newtonsoft.Json
+@model Rsk.AspNetCore.Fido.Dtos.Base64FidoAuthenticationChallenge
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Please use your authenticator</h2>
+
+<script>
+
+    let challengeBytesAsString = atob("@Html.Raw(Model.Base64Challenge)");
+    let challenge = new Uint8Array(challengeBytesAsString.length);
+    for (let i = 0; i < challengeBytesAsString.length; i++) {
+        challenge[i] = challengeBytesAsString.charCodeAt(i);
+    }
+    
+    let rpId = "@Model.RelyingPartyId";
+    
+    let keys = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Base64KeyIds))');
+    let allowCredentials = [];
+
+    for (let i = 0; i < keys.length; i++) {
+        let keyIdBytesAsString = window.atob(keys[i]);
+
+        let key = new Uint8Array(keyIdBytesAsString.length);
+        for (let i = 0; i < keyIdBytesAsString.length; i++) {
+            key[i] = keyIdBytesAsString.charCodeAt(i);
+        }
+
+        allowCredentials.push({
+            type: "public-key",
+            id: key
+        });
+    }
+    
+    navigator.credentials.get({ publicKey: { challenge, rpId, allowCredentials } })
+        .then((result) => {
+            let encodedResult = {
+                id: result.id,
+                rawId: btoa(String.fromCharCode.apply(null, new Uint8Array(result.rawId))),
+                type: result.type,
+                response: {
+                    authenticatorData:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(result.response.authenticatorData))),
+                    signature:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(result.response.signature))),
+                    userHandle:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(result.response.userHandle))),
+                    clientDataJSON:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(result.response.clientDataJSON)))
+                }
+            };
+            
+            $.ajax({
+                url: '/Fido/CompleteLogin',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(encodedResult),
+                success:function() {
+                    window.location.href = "/";
+                }
+            });            
+
+        })
+        .catch((error) => {
+            console.error(error);
+        });   
+        
+</script>

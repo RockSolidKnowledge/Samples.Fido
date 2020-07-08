@@ -1,0 +1,10 @@
+@using Newtonsoft.Json
+@model Rsk.AspNetCore.Fido.Dtos.Base64FidoAuthenticationChallenge
+
+<h2>Please use your authenticator</h2>
+
+<script src="~/js/fido.js"></script>
+
+<script>
+   completeLogin("@Html.Raw(Model.Base64Challenge)", "@Model.RelyingPartyId", '/Fido/CompleteLogin')
+</script>

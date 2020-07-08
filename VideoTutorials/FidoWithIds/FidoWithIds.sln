@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdS", "IdS\IdS.csproj", "{C18EB020-2AF0-423F-89EB-F08CFB47418F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FidoClientApp", "FidoClientApp\FidoClientApp.csproj", "{1FEC3F40-31C9-4123-9140-AEE8EB1057F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "Migrations\Migrations.csproj", "{6D642C66-3407-4A10-A33F-B81A84C2B4C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C18EB020-2AF0-423F-89EB-F08CFB47418F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C18EB020-2AF0-423F-89EB-F08CFB47418F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C18EB020-2AF0-423F-89EB-F08CFB47418F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C18EB020-2AF0-423F-89EB-F08CFB47418F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FEC3F40-31C9-4123-9140-AEE8EB1057F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FEC3F40-31C9-4123-9140-AEE8EB1057F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FEC3F40-31C9-4123-9140-AEE8EB1057F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FEC3F40-31C9-4123-9140-AEE8EB1057F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D642C66-3407-4A10-A33F-B81A84C2B4C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D642C66-3407-4A10-A33F-B81A84C2B4C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D642C66-3407-4A10-A33F-B81A84C2B4C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D642C66-3407-4A10-A33F-B81A84C2B4C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

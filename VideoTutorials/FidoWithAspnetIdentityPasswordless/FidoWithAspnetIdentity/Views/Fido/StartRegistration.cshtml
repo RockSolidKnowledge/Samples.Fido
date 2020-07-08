@@ -1,0 +1,16 @@
+@model Registration
+
+<h2>Register</h2>
+<form asp-action="Register">
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control"/>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DeviceName"></label>
+        <input asp-for="DeviceName" class="form-control" />
+        <span asp-validation-for="DeviceName" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

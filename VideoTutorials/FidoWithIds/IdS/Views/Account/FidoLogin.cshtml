@@ -1,0 +1,15 @@
+@using Newtonsoft.Json
+@model IdS.Quickstart.Account.FidoIdSModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Please use your authenticator</h2>
+
+<script src="~/js/fido.js"></script>
+
+<script nonce="@Model.Nonce">
+    completeLogin("@Html.Raw(Model.Challenge.Base64Challenge)", "@Model.Challenge.RelyingPartyId", '@Html.Raw(JsonConvert.SerializeObject(Model.Challenge.Base64KeyIds))', '/Account/FidoCompleteLogin', "@Html.Raw(@Model.ReturnUrl)")
+</script>

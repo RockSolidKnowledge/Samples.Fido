@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "lib": [
+      "ES2018",
+      "dom"
+    ],
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "outDir": "js",
+    "moduleResolution": "node",
+    "downlevelIteration": true
+  },
+  "exclude": ["node_modules"],
+  "files": [
+    "ts/authenticate.ts"
+  ],
+  "include": [
+
+  ]
+}

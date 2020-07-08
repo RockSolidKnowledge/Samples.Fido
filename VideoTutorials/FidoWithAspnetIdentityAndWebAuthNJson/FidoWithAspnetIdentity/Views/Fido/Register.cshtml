@@ -1,0 +1,11 @@
+@model Rsk.AspNetCore.Fido.Dtos.Base64FidoRegistrationChallenge
+
+<h2>Please use your authenticator</h2>
+
+@section Scripts
+{
+    <script>
+    aspAndWebpack.register("@Html.Raw(Model.Base64Challenge)", "@Model.RelyingPartyId", "@Html.Raw(Model.Base64UserHandle)", "@Model.UserId", '/Fido/CompleteRegistration');
+    </script>
+
+}

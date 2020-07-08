@@ -1,0 +1,16 @@
+@using Newtonsoft.Json
+@model Rsk.AspNetCore.Fido.Dtos.Base64FidoAuthenticationChallenge
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Please use your authenticator</h2>
+
+@section Scripts
+{
+    <script>
+    aspAndWebpack.login("@Html.Raw(Model.Base64Challenge)", "@Model.RelyingPartyId", '@Html.Raw(JsonConvert.SerializeObject(Model.Base64KeyIds))', '/Fido/CompleteLogin')
+    </script>
+}
