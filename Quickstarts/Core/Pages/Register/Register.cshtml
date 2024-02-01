@@ -1,0 +1,128 @@
+@page
+@model Core.Pages.Register.RegisterModel
+@Html.AntiForgeryToken()  
+
+<h2>Please use your authenticator</h2>
+
+<script>
+    //Attestation Configuration
+    //https://www.identityserver.com/documentation/fido2/webauthn/attestation/
+    
+    
+    // Challenge
+    let challengeBytesAsString = atob("@Html.Raw(Model.Challenge.Base64Challenge)");
+    let challenge = new Uint8Array(challengeBytesAsString.length);
+    for (let i = 0; i < challengeBytesAsString.length; i++) {
+        challenge[i] = challengeBytesAsString.charCodeAt(i);
+    }
+
+    // Supported algorithms, ordered by preference
+    var pubKeyCredParams = [
+        {
+            type: "public-key",
+            alg: -8
+        },
+        {
+            type: "public-key",
+            alg: -259
+        },
+        {
+            type: "public-key",
+            alg: -39
+        },
+        {
+            type: "public-key",
+            alg: -36
+        },
+        {
+            type: "public-key",
+            alg: -258
+        },
+        {
+            type: "public-key",
+            alg: -38
+        },
+        {
+            type: "public-key",
+            alg: -35
+        },
+        {
+            type: "public-key",
+            alg: -7
+        },
+        {
+            type: "public-key",
+            alg: -257
+        },
+        {
+            type: "public-key",
+            alg: -37
+        },
+        {
+            type: "public-key",
+            alg: -7
+        },
+        {
+            type: "public-key",
+            alg: -65535
+        }
+    ];
+
+    // Relying party details
+    let rp = {
+        id: "@Model.Challenge.RelyingPartyId",
+        name: "RSK FIDO Quickstart - Core"
+    };
+        
+    // User handle
+    let userHandleBytesAsString = atob("@Html.Raw(Model.Challenge.Base64UserHandle)");
+    let userHandle = new Uint8Array(userHandleBytesAsString.length);
+    for (let i = 0; i < userHandleBytesAsString.length; i++) {
+        userHandle[i] = userHandleBytesAsString.charCodeAt(i);
+    }
+
+    let user = {
+        name: "@Model.Challenge.UserId",
+        displayName: "@Model.Challenge.UserId",
+        id: userHandle
+    };
+    
+
+
+    navigator.credentials.create({ publicKey: {challenge, rp, user, pubKeyCredParams} })
+        .then((credentials) => {
+            console.log("Credentials created successfully!")
+            // base64 encode array buffers
+            let encodedCredentials = {
+                id: credentials.id,
+                rawId: btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.rawId))),
+                type: credentials.type,
+                response: {
+                    attestationObject:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.attestationObject))),
+                    clientDataJSON:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.clientDataJSON)))
+                }
+            };
+            console.log(encodedCredentials);
+            
+            // post to register callback endpoint and redirect to homepage
+            $.ajax({
+                url: '/register/register',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(encodedCredentials),
+                beforeSend: function (xhr) { xhr.setRequestHeader("XSRF-TOKEN", $('input:hidden[name="__RequestVerificationToken"]').val()); },
+
+                success: function() {
+                    window.location.href = "/";
+                },
+                error: function() {
+                    console.error("Error from server...");
+                }
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+</script>

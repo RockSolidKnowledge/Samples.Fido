@@ -1,0 +1,77 @@
+@page
+@using Newtonsoft.Json
+@model Core.Pages.Login.LoginModel
+@Html.AntiForgeryToken()  
+
+<h2>Please use your authenticator</h2>
+
+<script>
+    //Authentication Configuration
+    //https://www.identityserver.com/documentation/fido2/webauthn/authentication/
+    
+    // Challenge
+    let challengeBytesAsString = atob("@Html.Raw(Model.Challenge.Base64Challenge)");
+    let challenge = new Uint8Array(challengeBytesAsString.length);
+    for (let i = 0; i < challengeBytesAsString.length; i++) {
+        challenge[i] = challengeBytesAsString.charCodeAt(i);
+    }
+
+    // Relying Party ID
+    let rpId = "@Model.Challenge.RelyingPartyId";
+
+    // Allowed credentials
+    let keys = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Challenge.Base64KeyIds))');
+    let allowCredentials = [];
+
+    for (let i = 0; i < keys.length; i++) {
+        let keyIdBytesAsString = window.atob(keys[i]);
+
+        let key = new Uint8Array(keyIdBytesAsString.length);
+        for (let i = 0; i < keyIdBytesAsString.length; i++) {
+            key[i] = keyIdBytesAsString.charCodeAt(i);
+        }
+
+        allowCredentials.push({
+            type: "public-key",
+            id: key
+        });
+    }
+    
+ 
+
+    navigator.credentials.get({ publicKey: { challenge, rpId, allowCredentials } })
+        .then((result) => {
+            
+            // base64 encode array buffers
+            let encodedResult = {
+                id: result.id,
+                rawId: btoa(String.fromCharCode.apply(null, new Uint8Array(result.rawId))),
+                type: result.type,
+                response: {
+                    authenticatorData:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(result.response.authenticatorData))),
+                    signature:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(result.response.signature))),
+                    userHandle:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(result.response.userHandle))),
+                    clientDataJSON:
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(result.response.clientDataJSON)))
+                }
+            };
+            
+            // post to login callback endpoint and redirect to homepage
+            $.ajax({
+                url: '/Login/Login',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(encodedResult),
+                beforeSend: function (xhr) { xhr.setRequestHeader("XSRF-TOKEN", $('input:hidden[name="__RequestVerificationToken"]').val()); },
+                success:function() {
+                    window.location.href = "/";
+                }
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+</script>
