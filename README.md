@@ -2,7 +2,7 @@
 
 This repository contains the completed quickstarts from https://www.identityserver.com/documentation/fido2.
 
-All samples currently use ASP.NET Core 3.1. For ASP.NET Core 2.x alternatives, check out the [aspnetcore2](https://github.com/RockSolidKnowledge/Samples.Fido/tree/aspnetcore2) branch.
+All samples currently use .NET 8 with Razor Pages. For ASP.NET Core 2.x MVC alternatives, check out the [aspnetcore2](https://github.com/RockSolidKnowledge/Samples.Fido/tree/aspnetcore2) branch.
 
 ## License Keys
 
