@@ -10,9 +10,9 @@ builder.Services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
 builder.Services.AddFido(options =>
     {
-        
+
         options.Licensee = "DEMO";
-        options.LicenseKey = "eyJTb2xkRm9yIjowLjAsIktleVByZXNldCI6NiwiU2F2ZUtleSI6ZmFsc2UsIkxlZ2FjeUtleSI6ZmFsc2UsIlJlbmV3YWxTZW50VGltZSI6IjAwMDEtMDEtMDFUMDA6MDA6MDAiLCJhdXRoIjoiREVNTyIsImV4cCI6IjIwMjQtMDctMDhUMDA6MDA6MDAiLCJpYXQiOiIyMDI0LTAxLTA4VDE2OjEzOjEzIiwib3JnIjoiREVNTyIsImF1ZCI6Nn0=.Tb5ayoJdcb7uoMU9F9Jr58ldcanmVwg/Krn1e9QTUt2PhcKqS785l0SZ5oKKikPdSl5eUZ4TLmpWYbzsCeRavnR45GnvAHLIKu5wYhOkqaHtG3nc5+VJ4v1nUlQsz7eCxdT33I8w6zlgNqiDDE2M7TAWBTkdvxx8l/xQRa5LD4gf5wNij0TE9XYmLIPylopbcncKPN3lydfIPLXmXNzn9/V28LbNQRcgE0dU3T2j3v6O+Dlu1l6SLzf4iENkv+87QveAgU9Od/Sf9PyewNs8qVBsQtYFuovaa9HIyxxS0+TnEVhYqhd9kDQXUVZGGlg3+xJ3CO5Z6iimb3tqoxexGjsg+RBMcERegWMvC333oY6dma4sFIZnBbmQ4UNaNgxzZYb77IJ88h8SKNVgbas1rCpbUJhlenvUv0rkO7hldB5WJVHNUJntAIi4rEvdADMMoILrK7t8NVKKa+foiZiJwfEtqQkMRkkDc8it3PThIlX3F7RI6hd7PCK6AsVpgCS6f/jAUv+S5GTewvTXg8wCooXZpEmKR4qjwRO1RAWTjYS2yR2EGJdrMXsAMj32wzstKK5xiYAtcaPQeNz8cWTfFF9jaYcVoxzpCZAtnzDqVl56IAcDjvrOX94pJbWhRoJ7d54tMOKEyr+jt8Yrfx852wgx2J/uY13VO6/wkHUYhBE=";
+        options.LicenseKey = "Get your license key from https://www.identityserver.com/products/fido2-for-aspnet";
     })
     .AddInMemoryKeyStore();
 
