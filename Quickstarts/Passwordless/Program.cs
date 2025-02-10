@@ -12,7 +12,7 @@ builder.Services.AddFido(options =>
     {
         
         options.Licensee = "DEMO";
-        options.LicenseKey = "eyJhdXRoIjoiREVNTyIsImV4cCI6IjIwMjUtMDMtMTBUMDA6MDA6MDAiLCJpYXQiOiIyMDI1LTAyLTEwVDE0OjIyOjMwIiwib3JnIjoiREVNTyIsImF1ZCI6Nn0=.RRSEaP/HzG8axYuHRc/hSfpxWbU+hW71xIL+4Kv/oHxe9YFA1FIYT+IaWakzp6NIxudr/cd2L0tcVNuwtP4+5452OivubMWvbNvX0xRDXPFlKwkzn97Y7EB9AfBdQqPFi/Uok6ZxBg7eOJFceCywAwrEQWBqfpX+DX02NGPuWme5V6omwocqiHCEuUzkOIB7i/JRRdQQtXtXuWSDGBpGSC0NBySrH3R4tbAY0t/z8thHau8dKNKXvgUoeSlMYYR0OgZkSFXIEkfbabEDj7So9FdD4UoJDEe4neOoZXXPRJVARucYAnqin5X1bGzpgOVNEbxRnYvA0OKvgurJsLJc6ivQV8oRhXX92RX3Ptas1Vd+e9DK/aBE0Q0oMHsGm0VIc1eVUgC+npihUU89aEHEY935APJGtw9bk1hlPtxgWGRj8zSSUwyY6W+Td0vgy16JZbHeOTqNcM6t6/l4T2w7Texi5w37R4qdIkaRi5p5EZ5uMjhhb1EuoKYfVvhXEBl91AT+EEZoMdzgK0ng4bpONFzwsuR/6ub0m/ijKBmsCp2y7UH5ckb9AE2osUK6BE8Ia/nHCuclU/0wY0Xz4MPkAQBN2WwmmFX0naZQ768+aoACk5JWZoPTJruQ/XsKU6ilmDllk6g/ByShZecPBwipIBJi0csUHUJKQlv4r8ezVgw=";
+        options.LicenseKey = "Get license key from https://www.identityserver.com/products/fido2-for-aspnet";
     })
     .AddInMemoryKeyStore();
 
