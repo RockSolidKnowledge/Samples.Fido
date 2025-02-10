@@ -20,3 +20,15 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.btn-primary, .btn-primary:hover {
+  background-color: red;
+  color:white;
+  padding: 10px;
+}
+.nav-link:hover {
+  background-color: red; /* Change background color on hover */
+  color: white !important; /* Change text color on hover */
+  border-radius: 5px; /* Add rounded corners */
+  transition: 0.3s; /* Smooth transition */
+}
