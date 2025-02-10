@@ -92,16 +92,17 @@
         //The type of authenticator to use
         // cross-platform: roaming security authenticator (External authenticator)
         // platform: platform authenticator (Built in authenticator)
-        authenticatorAttachment: 'cross-platform', 
+        // null, allows any type of authenticator 
+        authenticatorAttachment: null, 
         
         // Require resident key
         // Keys are generated and stored on the device
         // Not all authenticators support resident keys
-        requireResidentKey: true,
+        residentKey: "required",
         
         // discouraged: the RelyingParty does not want user verification during the operation, this could be to minimize disruption to the user flow.
         // preferred: the RelyingParty prefers user verification if possible but will not fail the if the response does have the AuthenticatorDataFlags.UV set.
-        // required: the operation will fail if the response does have the AuthenticatorDataFlags.UV set.
+        // required: the operation will fail if the response does have the AuthenticatorDataFlags.UV set. This must be used for passwordless
         userVerification: 'required'
     };
 

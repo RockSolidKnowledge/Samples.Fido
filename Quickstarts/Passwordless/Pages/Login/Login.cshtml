@@ -23,18 +23,21 @@
     let keys = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Challenge.Base64KeyIds))');
     let allowCredentials = [];
 
-    for (let i = 0; i < keys.length; i++) {
-        let keyIdBytesAsString = window.atob(keys[i]);
+    // Allow for user not to specify the username
+    if ( keys != null ) {
+        for (let i = 0; i < keys.length; i++) {
+            let keyIdBytesAsString = window.atob(keys[i]);
 
-        let key = new Uint8Array(keyIdBytesAsString.length);
-        for (let i = 0; i < keyIdBytesAsString.length; i++) {
-            key[i] = keyIdBytesAsString.charCodeAt(i);
+            let key = new Uint8Array(keyIdBytesAsString.length);
+            for (let i = 0; i < keyIdBytesAsString.length; i++) {
+                key[i] = keyIdBytesAsString.charCodeAt(i);
+            }
+
+            allowCredentials.push({
+                type: "public-key",
+                id: key
+            });
         }
-
-        allowCredentials.push({
-            type: "public-key",
-            id: key
-        });
     }
     
     // Attestation Preference
@@ -42,25 +45,10 @@
     // indirect: the RelyingParty prefers a verifiable attestation statement but allows the client to device how to obtain it.
     // none: the relying party is not interested in authenticator attestation.
     var attestation = "direct";
-
-    var authenticatorSelection = {
-        //The type of authenticator to use
-        // cross-platform: roaming security authenticator (External authenticator)
-        // platform: platform authenticator (Built in authenticator)
-        authenticatorAttachment: 'cross-platform', 
-        
-        // Require resident key
-        // Keys are generated and stored on the device
-        // Not all authenticators support resident keys
-        requireResidentKey: false,
-        
-        // discouraged: the RelyingParty does not want user verification during the operation, this could be to minimize disruption to the user flow.
-        // preferred: the RelyingParty prefers user verification if possible but will not fail the if the response does have the AuthenticatorDataFlags.UV set.
-        // required: the operation will fail if the response does have the AuthenticatorDataFlags.UV set.
-        userVerification: 'preferred'
-    };
-
-    navigator.credentials.get({ publicKey: { challenge, rpId, allowCredentials } })
+    
+    const userVerification = "required";
+    
+    navigator.credentials.get({ publicKey: { challenge, rpId, allowCredentials, userVerification } })
         .then((result) => {
             
             // base64 encode array buffers
