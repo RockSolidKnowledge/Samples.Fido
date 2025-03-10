@@ -3,36 +3,56 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Rsk.AspNetCore.Fido.Services;
 
-var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
-
+// Create the builder
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Pull Fido configuration from appsettings.json
+var fidoConfig = builder.Configuration.GetSection("Fido");
+string licensee = fidoConfig["Licensee"] ?? "DEMO";
+string licenseKey = fidoConfig["LicenseKey"] ?? "Get license key from https://www.identityserver.com/products/fido2-for-aspnet";
+
+// Get connection string from configuration
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
+
+// Add health checks with database
+builder.Services.AddHealthChecks()
+    .AddSqlServer(connectionString);
+
+// Add services
 builder.Services.AddRazorPages();
 builder.Services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
-builder.Services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+builder.Services.AddAntiforgery(options => options.HeaderName = "XSRF-TOKEN");
 
+// Configure database logging for development
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+}
+
+// Configure FIDO using values from appsettings
 builder.Services.AddFido(options =>
-    {
-        
-        options.Licensee = "DEMO";
-        options.LicenseKey = "Get license key from https://www.identityserver.com/products/fido2-for-aspnet";
-    })
-    .AddEntityFrameworkStore(options => options.UseSqlServer(
-        "<Connection String>", sql => sql.MigrationsAssembly(migrationsAssembly)));
-;
+{
+    options.Licensee = licensee;
+    options.LicenseKey = licenseKey;
+})
+.AddEntityFrameworkStore(options => 
+    options.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
 
+// Configure Cookie authentication
 builder.Services.AddAuthentication("cookie")
-    .AddCookie("cookie", options => { options.LoginPath = "/Login/Index"; });
+    .AddCookie("cookie", options =>
+    {
+        options.LoginPath = "/Login/Index";
+    });
 
-
+// Build the application
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -41,6 +61,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Make sure to use Authentication before Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
