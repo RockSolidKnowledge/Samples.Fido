@@ -27,7 +27,7 @@ builder.Services.AddFido(options =>
     options.LicenseKey = licenseKey;
 })
 .AddEntityFrameworkStore(options => 
-    options.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
+    options.UseSqlite(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
 
 // Configure Cookie authentication
 builder.Services.AddAuthentication("cookie")
