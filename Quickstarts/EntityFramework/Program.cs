@@ -15,20 +15,10 @@ string licenseKey = fidoConfig["LicenseKey"] ?? "Get license key from https://ww
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
 
-// Add health checks with database
-builder.Services.AddHealthChecks()
-    .AddSqlServer(connectionString);
-
 // Add services
 builder.Services.AddRazorPages();
 builder.Services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddAntiforgery(options => options.HeaderName = "XSRF-TOKEN");
-
-// Configure database logging for development
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-}
 
 // Configure FIDO using values from appsettings
 builder.Services.AddFido(options =>
