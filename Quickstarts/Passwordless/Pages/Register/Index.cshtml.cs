@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Rsk.AspNetCore.Fido;
@@ -9,10 +10,11 @@ public class IndexModel : PageModel
     private readonly IFidoAuthentication _fidoAuthentication;
 
     [BindProperty]
-    public string UserId { get; set; }
+    [Required]
+    public string? UserId { get; set; }
     
     [BindProperty]
-    public string DeviceName { get; set; }
+    public string? DeviceName { get; set; }
 
     public IndexModel(IFidoAuthentication fidoAuthentication)
     {

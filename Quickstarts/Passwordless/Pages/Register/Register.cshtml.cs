@@ -10,7 +10,7 @@ public class RegisterModel : PageModel
     private readonly IFidoAuthentication _fidoAuthentication;
 
     [BindProperty(SupportsGet = true)]
-    public Base64FidoRegistrationChallenge Challenge { get; set; }
+    public Base64FidoRegistrationChallenge? FidoChallenge { get; set; }
     
 
     public RegisterModel(IFidoAuthentication _fidoAuthentication)

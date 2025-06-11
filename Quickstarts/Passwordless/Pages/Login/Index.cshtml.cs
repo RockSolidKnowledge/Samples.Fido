@@ -10,7 +10,7 @@ public class IndexModel : PageModel
     private readonly IFidoAuthentication _fidoAuthentication;
 
     [BindProperty]
-    public string UserId { get; set; }
+    public string? UserId { get; set; }
 
     public IndexModel(IFidoAuthentication fidoAuthentication)
     {

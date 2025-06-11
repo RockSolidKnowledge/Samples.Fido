@@ -10,7 +10,7 @@
     
     
     // Challenge
-    let challengeBytesAsString = atob("@Html.Raw(Model.Challenge.Base64Challenge)");
+    let challengeBytesAsString = atob("@Html.Raw(Model.FidoChallenge!.Base64Challenge)");
     let challenge = new Uint8Array(challengeBytesAsString.length);
     for (let i = 0; i < challengeBytesAsString.length; i++) {
         challenge[i] = challengeBytesAsString.charCodeAt(i);
@@ -70,20 +70,20 @@
 
     // Relying party details
     let rp = {
-        id: "@Model.Challenge.RelyingPartyId",
+        id: "@Model.FidoChallenge.RelyingPartyId",
         name: "RSK FIDO Quickstart - Core"
     };
         
     // User handle
-    let userHandleBytesAsString = atob("@Html.Raw(Model.Challenge.Base64UserHandle)");
+    let userHandleBytesAsString = atob("@Html.Raw(Model.FidoChallenge.Base64UserHandle)");
     let userHandle = new Uint8Array(userHandleBytesAsString.length);
     for (let i = 0; i < userHandleBytesAsString.length; i++) {
         userHandle[i] = userHandleBytesAsString.charCodeAt(i);
     }
 
     let user = {
-        name: "@Model.Challenge.UserId",
-        displayName: "@Model.Challenge.UserId",
+        name: "@Model.FidoChallenge.UserId",
+        displayName: "@Model.FidoChallenge.UserId",
         id: userHandle
     };
     

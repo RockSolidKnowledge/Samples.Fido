@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Rsk.AspNetCore.Fido;
@@ -13,7 +12,7 @@ public class LoginModel : PageModel
     private readonly IFidoAuthentication _fidoAuthentication;
 
     [BindProperty(SupportsGet = true)]
-    public Base64FidoAuthenticationChallenge Challenge { get; set; }
+    public Base64FidoAuthenticationChallenge? FidoChallenge { get; set; }
 
     public LoginModel(IFidoAuthentication fidoAuthentication)
     {
