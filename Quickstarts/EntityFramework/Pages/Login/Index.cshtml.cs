@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Rsk.AspNetCore.Fido;
-using Rsk.AspNetCore.Fido.Dtos;
 
 namespace Core.Pages.Login;
 
@@ -10,12 +9,13 @@ public class IndexModel : PageModel
     private readonly IFidoAuthentication _fidoAuthentication;
 
     [BindProperty]
-    public string UserId { get; set; }
+    public string? UserId { get; set; }
 
     public IndexModel(IFidoAuthentication fidoAuthentication)
     {
         _fidoAuthentication = fidoAuthentication;
     }
+
     public IActionResult OnGet()
     {
         return Page();
