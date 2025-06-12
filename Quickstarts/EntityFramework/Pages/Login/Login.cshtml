@@ -23,18 +23,21 @@
     let keys = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.FidoChallenge.Base64KeyIds))');
     let allowCredentials = [];
 
-    for (let i = 0; i < keys.length; i++) {
-        let keyIdBytesAsString = window.atob(keys[i]);
+    // Allow for user not to specify the username
+    if ( keys != null ) {
+        for (let i = 0; i < keys.length; i++) {
+            let keyIdBytesAsString = window.atob(keys[i]);
 
-        let key = new Uint8Array(keyIdBytesAsString.length);
-        for (let i = 0; i < keyIdBytesAsString.length; i++) {
-            key[i] = keyIdBytesAsString.charCodeAt(i);
+            let key = new Uint8Array(keyIdBytesAsString.length);
+            for (let i = 0; i < keyIdBytesAsString.length; i++) {
+                key[i] = keyIdBytesAsString.charCodeAt(i);
+            }
+
+            allowCredentials.push({
+                type: "public-key",
+                id: key
+            });
         }
-
-        allowCredentials.push({
-            type: "public-key",
-            id: key
-        });
     }
     
     // Attestation Preference
