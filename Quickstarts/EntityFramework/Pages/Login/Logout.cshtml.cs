@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Core.Pages.Login;
 
-public class Logout : PageModel
+public class LogoutModel : PageModel
 {
     public async Task OnGet()
     {

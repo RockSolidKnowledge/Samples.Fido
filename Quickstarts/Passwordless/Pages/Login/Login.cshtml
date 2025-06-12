@@ -17,10 +17,10 @@
     }
 
     // Relying Party ID
-    let rpId = "@Model.FidoChallenge.RelyingPartyId";
+    let rpId = "@Model.FidoChallenge!.RelyingPartyId";
 
     // Allowed credentials
-    let keys = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.FidoChallenge.Base64KeyIds))');
+    let keys = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.FidoChallenge!.Base64KeyIds))');
     let allowCredentials = [];
 
     // Allow for user not to specify the username
